@@ -78,7 +78,6 @@ class UserSerializer(WritableNestedModelSerializer):
         fields = (
             "id",
             "email",
-            "username",
             "is_staff",
             "profile",
             "password",

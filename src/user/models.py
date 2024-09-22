@@ -1,3 +1,6 @@
+import secrets
+import string
+
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -5,6 +8,10 @@ from safedelete.models import SafeDeleteModel
 
 from src.user.manager import CustomAccountManager
 
+
+def generate_random_username(length=8):
+    characters = string.ascii_letters + string.digits
+    return "".join(secrets.choice(characters) for _ in range(length))
 
 class User(AbstractBaseUser, SafeDeleteModel, PermissionsMixin):
     """
@@ -40,6 +47,17 @@ class User(AbstractBaseUser, SafeDeleteModel, PermissionsMixin):
         """
 
         ordering = ["created_on"]
+
+    def save(self, keep_deleted=False, **kwargs):
+        if not self.username:
+            self.username = self.generate_unique_username()
+        return super().save(keep_deleted, **kwargs)
+    
+    def generate_unique_username(self):
+        username = generate_random_username()
+        while self.__class__.objects.filter(username=username).exists():
+            username = generate_random_username()
+        return username
 
 
 class GenderChoices(models.TextChoices):

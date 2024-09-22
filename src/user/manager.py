@@ -10,13 +10,12 @@ class CustomAccountManager(BaseUserManager):
     for authentication instead of usernames.
     """
 
-    def create_superuser(self, email, username, password=None, **extra_fields):
+    def create_superuser(self, email, password=None, **extra_fields):
         """
         Create and save a SuperUser with the given email and password.
         """
         user = self.create_user(
             email=email,
-            username=username,
             password=password,
             **extra_fields,
         )
@@ -24,14 +23,14 @@ class CustomAccountManager(BaseUserManager):
         user.save()
         return user
 
-    def create_user(self, email, username, password=None, **extra_fields):
+    def create_user(self, email, password=None, **extra_fields):
         """
         Create and save a User with the given email and password.
         """
         if not email:
             raise ValueError(_("You must provide an email address"))
         email = self.normalize_email(email)
-        user = self.model(email=email, username=username, **extra_fields)
+        user = self.model(email=email, **extra_fields)
 
         if password is None:
             password = generate_random_password(32)
