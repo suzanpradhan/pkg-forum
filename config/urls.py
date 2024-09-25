@@ -37,6 +37,7 @@ api_v1_urlpatterns = [
     ),
     path("", include("src.core.urls")),
     path("", include("src.user.urls")),
+    path("", include("src.packages.urls")),
 ]
 
 urlpatterns = [

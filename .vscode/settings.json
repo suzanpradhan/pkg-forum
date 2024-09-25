@@ -1,0 +1,18 @@
+{
+  // "python.linting.pylintEnabled": true,
+  // "python.linting.enabled": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true
+  },
+  "python.formatting.provider": "none",
+  "python.autoComplete.extraPaths": ["${workspaceFolder}/src"],
+  "python.analysis.extraPaths": ["${workspaceFolder}/src"],
+  "cSpell.words": ["filterset", "viewset", "viewsets"],
+  "pylint.args": ["load-plugins=pylint_django"]
+}
