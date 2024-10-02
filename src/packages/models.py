@@ -34,3 +34,5 @@ class Package(models.Model):
     registry = models.ForeignKey(Registry, on_delete=models.SET_NULL, null=True)
     version = models.CharField(max_length=100)
     socials = models.ManyToManyField(PackageSocial)
+    image = models.ImageField(upload_to="package_images/", null=True, blank=True)
+    cover_image = models.ImageField(upload_to="cover_images/", null=True, blank=True)
